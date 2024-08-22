@@ -31,7 +31,7 @@ builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
 builder.Services.AddScoped<ICountriesRespository, CountryRespository>();
-
+builder.Services.AddScoped<IHotelRespository, HotelRepository>();
 
 var app = builder.Build();
 

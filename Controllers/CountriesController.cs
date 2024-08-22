@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelListingAPI.Data;
 using HotelListingAPI.Model.Country;
@@ -54,7 +49,7 @@ namespace HotelListingAPI.Controllers
         // PUT: api/Countries/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCountry(int id, Country country)
+        public async Task<IActionResult> PutCountry(int id, CountryDto country)
         {
             if (id != country.Id)
             {
@@ -65,10 +60,11 @@ namespace HotelListingAPI.Controllers
             if (c == null) {
                 return NotFound();
             }
+            _mapper.Map(country, c);
 
             try
             {
-                await _countries.UpdateAsync(country);
+                await _countries.UpdateAsync(c);
             }
             catch (DbUpdateConcurrencyException)
             {
